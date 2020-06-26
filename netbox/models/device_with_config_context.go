@@ -47,7 +47,7 @@ type DeviceWithConfigContext struct {
 
 	// Config context
 	// Read Only: true
-	ConfigContext map[string]string `json:"config_context,omitempty"`
+	ConfigContext *ConfigContext `json:"config_context,omitempty"`
 
 	// Created
 	// Read Only: true
