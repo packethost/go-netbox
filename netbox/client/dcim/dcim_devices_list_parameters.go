@@ -144,7 +144,7 @@ type DcimDevicesListParams struct {
 	/*RegionID*/
 	RegionID *string
 	/*Role*/
-	Role *string
+	Roles []string
 	/*RoleID*/
 	RoleID *string
 	/*Serial*/
@@ -532,14 +532,14 @@ func (o *DcimDevicesListParams) SetRegionID(regionID *string) {
 }
 
 // WithRole adds the role to the dcim devices list params
-func (o *DcimDevicesListParams) WithRole(role *string) *DcimDevicesListParams {
-	o.SetRole(role)
+func (o *DcimDevicesListParams) WithRole(roles ...string) *DcimDevicesListParams {
+	o.SetRole(roles...)
 	return o
 }
 
 // SetRole adds the role to the dcim devices list params
-func (o *DcimDevicesListParams) SetRole(role *string) {
-	o.Role = role
+func (o *DcimDevicesListParams) SetRole(roles ...string) {
+	o.Roles = roles
 }
 
 // WithRoleID adds the roleID to the dcim devices list params
@@ -1168,16 +1168,16 @@ func (o *DcimDevicesListParams) WriteToRequest(r runtime.ClientRequest, reg strf
 
 	}
 
-	if o.Role != nil {
+	if o.Roles != nil {
 
 		// query param role
-		var qrRole string
-		if o.Role != nil {
-			qrRole = *o.Role
+		var qrRoles []string
+		if o.Roles != nil {
+			qrRoles = o.Roles
 		}
-		qRole := qrRole
-		if qRole != "" {
-			if err := r.SetQueryParam("role", qRole); err != nil {
+		qRoles := qrRoles
+		if len(qRoles) != 0 {
+			if err := r.SetQueryParam("role", qRoles...); err != nil {
 				return err
 			}
 		}
