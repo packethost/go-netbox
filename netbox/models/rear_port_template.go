@@ -21,6 +21,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -59,7 +60,7 @@ type RearPortTemplate struct {
 	Name *string `json:"name"`
 
 	// Positions
-	// Maximum: 64
+	// Maximum: 1024
 	// Minimum: 1
 	Positions int64 `json:"positions,omitempty"`
 
@@ -112,12 +113,11 @@ func (m *RearPortTemplate) Validate(formats strfmt.Registry) error {
 }
 
 func (m *RearPortTemplate) validateDescription(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Description) { // not required
 		return nil
 	}
 
-	if err := validate.MaxLength("description", "body", string(m.Description), 200); err != nil {
+	if err := validate.MaxLength("description", "body", m.Description, 200); err != nil {
 		return err
 	}
 
@@ -143,12 +143,11 @@ func (m *RearPortTemplate) validateDeviceType(formats strfmt.Registry) error {
 }
 
 func (m *RearPortTemplate) validateLabel(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Label) { // not required
 		return nil
 	}
 
-	if err := validate.MaxLength("label", "body", string(m.Label), 64); err != nil {
+	if err := validate.MaxLength("label", "body", m.Label, 64); err != nil {
 		return err
 	}
 
@@ -161,11 +160,11 @@ func (m *RearPortTemplate) validateName(formats strfmt.Registry) error {
 		return err
 	}
 
-	if err := validate.MinLength("name", "body", string(*m.Name), 1); err != nil {
+	if err := validate.MinLength("name", "body", *m.Name, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("name", "body", string(*m.Name), 64); err != nil {
+	if err := validate.MaxLength("name", "body", *m.Name, 64); err != nil {
 		return err
 	}
 
@@ -173,16 +172,15 @@ func (m *RearPortTemplate) validateName(formats strfmt.Registry) error {
 }
 
 func (m *RearPortTemplate) validatePositions(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Positions) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("positions", "body", int64(m.Positions), 1, false); err != nil {
+	if err := validate.MinimumInt("positions", "body", m.Positions, 1, false); err != nil {
 		return err
 	}
 
-	if err := validate.MaximumInt("positions", "body", int64(m.Positions), 64, false); err != nil {
+	if err := validate.MaximumInt("positions", "body", m.Positions, 1024, false); err != nil {
 		return err
 	}
 
@@ -208,12 +206,83 @@ func (m *RearPortTemplate) validateType(formats strfmt.Registry) error {
 }
 
 func (m *RearPortTemplate) validateURL(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.URL) { // not required
 		return nil
 	}
 
 	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this rear port template based on the context it is used
+func (m *RearPortTemplate) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateDeviceType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateID(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateURL(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *RearPortTemplate) contextValidateDeviceType(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.DeviceType != nil {
+		if err := m.DeviceType.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("device_type")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *RearPortTemplate) contextValidateID(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "id", "body", int64(m.ID)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *RearPortTemplate) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Type != nil {
+		if err := m.Type.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("type")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *RearPortTemplate) contextValidateURL(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "url", "body", strfmt.URI(m.URL)); err != nil {
 		return err
 	}
 
@@ -245,12 +314,12 @@ type RearPortTemplateType struct {
 
 	// label
 	// Required: true
-	// Enum: [8P8C 8P6C 8P4C 8P2C 110 Punch BNC MRJ21 FC LC LC/APC LSH LSH/APC MPO MTRJ SC SC/APC ST]
+	// Enum: [8P8C 8P6C 8P4C 8P2C GG45 TERA 4P TERA 2P TERA 1P 110 Punch BNC MRJ21 FC LC LC/APC LSH LSH/APC MPO MTRJ SC SC/APC ST CS SN Splice]
 	Label *string `json:"label"`
 
 	// value
 	// Required: true
-	// Enum: [8p8c 8p6c 8p4c 8p2c 110-punch bnc mrj21 fc lc lc-apc lsh lsh-apc mpo mtrj sc sc-apc st]
+	// Enum: [8p8c 8p6c 8p4c 8p2c gg45 tera-4p tera-2p tera-1p 110-punch bnc mrj21 fc lc lc-apc lsh lsh-apc mpo mtrj sc sc-apc st cs sn splice]
 	Value *string `json:"value"`
 }
 
@@ -276,7 +345,7 @@ var rearPortTemplateTypeTypeLabelPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["8P8C","8P6C","8P4C","8P2C","110 Punch","BNC","MRJ21","FC","LC","LC/APC","LSH","LSH/APC","MPO","MTRJ","SC","SC/APC","ST"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["8P8C","8P6C","8P4C","8P2C","GG45","TERA 4P","TERA 2P","TERA 1P","110 Punch","BNC","MRJ21","FC","LC","LC/APC","LSH","LSH/APC","MPO","MTRJ","SC","SC/APC","ST","CS","SN","Splice"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -297,6 +366,18 @@ const (
 
 	// RearPortTemplateTypeLabelNr8P2C captures enum value "8P2C"
 	RearPortTemplateTypeLabelNr8P2C string = "8P2C"
+
+	// RearPortTemplateTypeLabelGG45 captures enum value "GG45"
+	RearPortTemplateTypeLabelGG45 string = "GG45"
+
+	// RearPortTemplateTypeLabelTERA4P captures enum value "TERA 4P"
+	RearPortTemplateTypeLabelTERA4P string = "TERA 4P"
+
+	// RearPortTemplateTypeLabelTERA2P captures enum value "TERA 2P"
+	RearPortTemplateTypeLabelTERA2P string = "TERA 2P"
+
+	// RearPortTemplateTypeLabelTERA1P captures enum value "TERA 1P"
+	RearPortTemplateTypeLabelTERA1P string = "TERA 1P"
 
 	// RearPortTemplateTypeLabelNr110Punch captures enum value "110 Punch"
 	RearPortTemplateTypeLabelNr110Punch string = "110 Punch"
@@ -336,6 +417,15 @@ const (
 
 	// RearPortTemplateTypeLabelST captures enum value "ST"
 	RearPortTemplateTypeLabelST string = "ST"
+
+	// RearPortTemplateTypeLabelCS captures enum value "CS"
+	RearPortTemplateTypeLabelCS string = "CS"
+
+	// RearPortTemplateTypeLabelSN captures enum value "SN"
+	RearPortTemplateTypeLabelSN string = "SN"
+
+	// RearPortTemplateTypeLabelSplice captures enum value "Splice"
+	RearPortTemplateTypeLabelSplice string = "Splice"
 )
 
 // prop value enum
@@ -364,7 +454,7 @@ var rearPortTemplateTypeTypeValuePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["8p8c","8p6c","8p4c","8p2c","110-punch","bnc","mrj21","fc","lc","lc-apc","lsh","lsh-apc","mpo","mtrj","sc","sc-apc","st"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["8p8c","8p6c","8p4c","8p2c","gg45","tera-4p","tera-2p","tera-1p","110-punch","bnc","mrj21","fc","lc","lc-apc","lsh","lsh-apc","mpo","mtrj","sc","sc-apc","st","cs","sn","splice"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -386,8 +476,20 @@ const (
 	// RearPortTemplateTypeValueNr8p2c captures enum value "8p2c"
 	RearPortTemplateTypeValueNr8p2c string = "8p2c"
 
-	// RearPortTemplateTypeValueNr110Punch captures enum value "110-punch"
-	RearPortTemplateTypeValueNr110Punch string = "110-punch"
+	// RearPortTemplateTypeValueGg45 captures enum value "gg45"
+	RearPortTemplateTypeValueGg45 string = "gg45"
+
+	// RearPortTemplateTypeValueTeraDash4p captures enum value "tera-4p"
+	RearPortTemplateTypeValueTeraDash4p string = "tera-4p"
+
+	// RearPortTemplateTypeValueTeraDash2p captures enum value "tera-2p"
+	RearPortTemplateTypeValueTeraDash2p string = "tera-2p"
+
+	// RearPortTemplateTypeValueTeraDash1p captures enum value "tera-1p"
+	RearPortTemplateTypeValueTeraDash1p string = "tera-1p"
+
+	// RearPortTemplateTypeValueNr110DashPunch captures enum value "110-punch"
+	RearPortTemplateTypeValueNr110DashPunch string = "110-punch"
 
 	// RearPortTemplateTypeValueBnc captures enum value "bnc"
 	RearPortTemplateTypeValueBnc string = "bnc"
@@ -401,14 +503,14 @@ const (
 	// RearPortTemplateTypeValueLc captures enum value "lc"
 	RearPortTemplateTypeValueLc string = "lc"
 
-	// RearPortTemplateTypeValueLcApc captures enum value "lc-apc"
-	RearPortTemplateTypeValueLcApc string = "lc-apc"
+	// RearPortTemplateTypeValueLcDashApc captures enum value "lc-apc"
+	RearPortTemplateTypeValueLcDashApc string = "lc-apc"
 
 	// RearPortTemplateTypeValueLsh captures enum value "lsh"
 	RearPortTemplateTypeValueLsh string = "lsh"
 
-	// RearPortTemplateTypeValueLshApc captures enum value "lsh-apc"
-	RearPortTemplateTypeValueLshApc string = "lsh-apc"
+	// RearPortTemplateTypeValueLshDashApc captures enum value "lsh-apc"
+	RearPortTemplateTypeValueLshDashApc string = "lsh-apc"
 
 	// RearPortTemplateTypeValueMpo captures enum value "mpo"
 	RearPortTemplateTypeValueMpo string = "mpo"
@@ -419,11 +521,20 @@ const (
 	// RearPortTemplateTypeValueSc captures enum value "sc"
 	RearPortTemplateTypeValueSc string = "sc"
 
-	// RearPortTemplateTypeValueScApc captures enum value "sc-apc"
-	RearPortTemplateTypeValueScApc string = "sc-apc"
+	// RearPortTemplateTypeValueScDashApc captures enum value "sc-apc"
+	RearPortTemplateTypeValueScDashApc string = "sc-apc"
 
 	// RearPortTemplateTypeValueSt captures enum value "st"
 	RearPortTemplateTypeValueSt string = "st"
+
+	// RearPortTemplateTypeValueCs captures enum value "cs"
+	RearPortTemplateTypeValueCs string = "cs"
+
+	// RearPortTemplateTypeValueSn captures enum value "sn"
+	RearPortTemplateTypeValueSn string = "sn"
+
+	// RearPortTemplateTypeValueSplice captures enum value "splice"
+	RearPortTemplateTypeValueSplice string = "splice"
 )
 
 // prop value enum
@@ -445,6 +556,11 @@ func (m *RearPortTemplateType) validateValue(formats strfmt.Registry) error {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this rear port template type based on context it is used
+func (m *RearPortTemplateType) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

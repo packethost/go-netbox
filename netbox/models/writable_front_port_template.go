@@ -21,6 +21,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -63,13 +64,13 @@ type WritableFrontPortTemplate struct {
 	RearPort *int64 `json:"rear_port"`
 
 	// Rear port position
-	// Maximum: 64
+	// Maximum: 1024
 	// Minimum: 1
 	RearPortPosition int64 `json:"rear_port_position,omitempty"`
 
 	// Type
 	// Required: true
-	// Enum: [8p8c 8p6c 8p4c 8p2c 110-punch bnc mrj21 fc lc lc-apc lsh lsh-apc mpo mtrj sc sc-apc st]
+	// Enum: [8p8c 8p6c 8p4c 8p2c gg45 tera-4p tera-2p tera-1p 110-punch bnc mrj21 fc lc lc-apc lsh lsh-apc mpo mtrj sc sc-apc st cs sn splice]
 	Type *string `json:"type"`
 
 	// Url
@@ -121,12 +122,11 @@ func (m *WritableFrontPortTemplate) Validate(formats strfmt.Registry) error {
 }
 
 func (m *WritableFrontPortTemplate) validateDescription(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Description) { // not required
 		return nil
 	}
 
-	if err := validate.MaxLength("description", "body", string(m.Description), 200); err != nil {
+	if err := validate.MaxLength("description", "body", m.Description, 200); err != nil {
 		return err
 	}
 
@@ -143,12 +143,11 @@ func (m *WritableFrontPortTemplate) validateDeviceType(formats strfmt.Registry) 
 }
 
 func (m *WritableFrontPortTemplate) validateLabel(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Label) { // not required
 		return nil
 	}
 
-	if err := validate.MaxLength("label", "body", string(m.Label), 64); err != nil {
+	if err := validate.MaxLength("label", "body", m.Label, 64); err != nil {
 		return err
 	}
 
@@ -161,11 +160,11 @@ func (m *WritableFrontPortTemplate) validateName(formats strfmt.Registry) error 
 		return err
 	}
 
-	if err := validate.MinLength("name", "body", string(*m.Name), 1); err != nil {
+	if err := validate.MinLength("name", "body", *m.Name, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("name", "body", string(*m.Name), 64); err != nil {
+	if err := validate.MaxLength("name", "body", *m.Name, 64); err != nil {
 		return err
 	}
 
@@ -182,16 +181,15 @@ func (m *WritableFrontPortTemplate) validateRearPort(formats strfmt.Registry) er
 }
 
 func (m *WritableFrontPortTemplate) validateRearPortPosition(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.RearPortPosition) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("rear_port_position", "body", int64(m.RearPortPosition), 1, false); err != nil {
+	if err := validate.MinimumInt("rear_port_position", "body", m.RearPortPosition, 1, false); err != nil {
 		return err
 	}
 
-	if err := validate.MaximumInt("rear_port_position", "body", int64(m.RearPortPosition), 64, false); err != nil {
+	if err := validate.MaximumInt("rear_port_position", "body", m.RearPortPosition, 1024, false); err != nil {
 		return err
 	}
 
@@ -202,7 +200,7 @@ var writableFrontPortTemplateTypeTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["8p8c","8p6c","8p4c","8p2c","110-punch","bnc","mrj21","fc","lc","lc-apc","lsh","lsh-apc","mpo","mtrj","sc","sc-apc","st"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["8p8c","8p6c","8p4c","8p2c","gg45","tera-4p","tera-2p","tera-1p","110-punch","bnc","mrj21","fc","lc","lc-apc","lsh","lsh-apc","mpo","mtrj","sc","sc-apc","st","cs","sn","splice"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -224,8 +222,20 @@ const (
 	// WritableFrontPortTemplateTypeNr8p2c captures enum value "8p2c"
 	WritableFrontPortTemplateTypeNr8p2c string = "8p2c"
 
-	// WritableFrontPortTemplateTypeNr110Punch captures enum value "110-punch"
-	WritableFrontPortTemplateTypeNr110Punch string = "110-punch"
+	// WritableFrontPortTemplateTypeGg45 captures enum value "gg45"
+	WritableFrontPortTemplateTypeGg45 string = "gg45"
+
+	// WritableFrontPortTemplateTypeTeraDash4p captures enum value "tera-4p"
+	WritableFrontPortTemplateTypeTeraDash4p string = "tera-4p"
+
+	// WritableFrontPortTemplateTypeTeraDash2p captures enum value "tera-2p"
+	WritableFrontPortTemplateTypeTeraDash2p string = "tera-2p"
+
+	// WritableFrontPortTemplateTypeTeraDash1p captures enum value "tera-1p"
+	WritableFrontPortTemplateTypeTeraDash1p string = "tera-1p"
+
+	// WritableFrontPortTemplateTypeNr110DashPunch captures enum value "110-punch"
+	WritableFrontPortTemplateTypeNr110DashPunch string = "110-punch"
 
 	// WritableFrontPortTemplateTypeBnc captures enum value "bnc"
 	WritableFrontPortTemplateTypeBnc string = "bnc"
@@ -239,14 +249,14 @@ const (
 	// WritableFrontPortTemplateTypeLc captures enum value "lc"
 	WritableFrontPortTemplateTypeLc string = "lc"
 
-	// WritableFrontPortTemplateTypeLcApc captures enum value "lc-apc"
-	WritableFrontPortTemplateTypeLcApc string = "lc-apc"
+	// WritableFrontPortTemplateTypeLcDashApc captures enum value "lc-apc"
+	WritableFrontPortTemplateTypeLcDashApc string = "lc-apc"
 
 	// WritableFrontPortTemplateTypeLsh captures enum value "lsh"
 	WritableFrontPortTemplateTypeLsh string = "lsh"
 
-	// WritableFrontPortTemplateTypeLshApc captures enum value "lsh-apc"
-	WritableFrontPortTemplateTypeLshApc string = "lsh-apc"
+	// WritableFrontPortTemplateTypeLshDashApc captures enum value "lsh-apc"
+	WritableFrontPortTemplateTypeLshDashApc string = "lsh-apc"
 
 	// WritableFrontPortTemplateTypeMpo captures enum value "mpo"
 	WritableFrontPortTemplateTypeMpo string = "mpo"
@@ -257,11 +267,20 @@ const (
 	// WritableFrontPortTemplateTypeSc captures enum value "sc"
 	WritableFrontPortTemplateTypeSc string = "sc"
 
-	// WritableFrontPortTemplateTypeScApc captures enum value "sc-apc"
-	WritableFrontPortTemplateTypeScApc string = "sc-apc"
+	// WritableFrontPortTemplateTypeScDashApc captures enum value "sc-apc"
+	WritableFrontPortTemplateTypeScDashApc string = "sc-apc"
 
 	// WritableFrontPortTemplateTypeSt captures enum value "st"
 	WritableFrontPortTemplateTypeSt string = "st"
+
+	// WritableFrontPortTemplateTypeCs captures enum value "cs"
+	WritableFrontPortTemplateTypeCs string = "cs"
+
+	// WritableFrontPortTemplateTypeSn captures enum value "sn"
+	WritableFrontPortTemplateTypeSn string = "sn"
+
+	// WritableFrontPortTemplateTypeSplice captures enum value "splice"
+	WritableFrontPortTemplateTypeSplice string = "splice"
 )
 
 // prop value enum
@@ -287,12 +306,47 @@ func (m *WritableFrontPortTemplate) validateType(formats strfmt.Registry) error 
 }
 
 func (m *WritableFrontPortTemplate) validateURL(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.URL) { // not required
 		return nil
 	}
 
 	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this writable front port template based on the context it is used
+func (m *WritableFrontPortTemplate) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateID(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateURL(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *WritableFrontPortTemplate) contextValidateID(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "id", "body", int64(m.ID)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *WritableFrontPortTemplate) contextValidateURL(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "url", "body", strfmt.URI(m.URL)); err != nil {
 		return err
 	}
 

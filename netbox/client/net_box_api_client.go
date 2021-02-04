@@ -30,6 +30,7 @@ import (
 	"github.com/netbox-community/go-netbox/netbox/client/extras"
 	"github.com/netbox-community/go-netbox/netbox/client/ipam"
 	"github.com/netbox-community/go-netbox/netbox/client/secrets"
+	"github.com/netbox-community/go-netbox/netbox/client/status"
 	"github.com/netbox-community/go-netbox/netbox/client/tenancy"
 	"github.com/netbox-community/go-netbox/netbox/client/users"
 	"github.com/netbox-community/go-netbox/netbox/client/virtualization"
@@ -41,14 +42,14 @@ var Default = NewHTTPClient(nil)
 const (
 	// DefaultHost is the default Host
 	// found in Meta (info) section of spec file
-	DefaultHost string = "localhost:8000"
+	DefaultHost string = "netbox-staging.packet.net"
 	// DefaultBasePath is the default BasePath
 	// found in Meta (info) section of spec file
 	DefaultBasePath string = "/api"
 )
 
 // DefaultSchemes are the default schemes found in Meta (info) section of spec file
-var DefaultSchemes = []string{"http"}
+var DefaultSchemes = []string{"https"}
 
 // NewHTTPClient creates a new net box API HTTP client.
 func NewHTTPClient(formats strfmt.Registry) *NetBoxAPI {
@@ -82,6 +83,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *NetBoxAPI 
 	cli.Extras = extras.New(transport, formats)
 	cli.Ipam = ipam.New(transport, formats)
 	cli.Secrets = secrets.New(transport, formats)
+	cli.Status = status.New(transport, formats)
 	cli.Tenancy = tenancy.New(transport, formats)
 	cli.Users = users.New(transport, formats)
 	cli.Virtualization = virtualization.New(transport, formats)
@@ -139,6 +141,8 @@ type NetBoxAPI struct {
 
 	Secrets secrets.ClientService
 
+	Status status.ClientService
+
 	Tenancy tenancy.ClientService
 
 	Users users.ClientService
@@ -156,6 +160,7 @@ func (c *NetBoxAPI) SetTransport(transport runtime.ClientTransport) {
 	c.Extras.SetTransport(transport)
 	c.Ipam.SetTransport(transport)
 	c.Secrets.SetTransport(transport)
+	c.Status.SetTransport(transport)
 	c.Tenancy.SetTransport(transport)
 	c.Users.SetTransport(transport)
 	c.Virtualization.SetTransport(transport)

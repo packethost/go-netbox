@@ -45,14 +45,7 @@ func (o *DcimRackGroupsCreateReader) ReadResponse(response runtime.ClientRespons
 		}
 		return result, nil
 	default:
-		result := NewDcimRackGroupsCreateDefault(response.Code())
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		if response.Code()/100 == 2 {
-			return result, nil
-		}
-		return nil, result
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -61,7 +54,7 @@ func NewDcimRackGroupsCreateCreated() *DcimRackGroupsCreateCreated {
 	return &DcimRackGroupsCreateCreated{}
 }
 
-/*DcimRackGroupsCreateCreated handles this case with default header values.
+/* DcimRackGroupsCreateCreated describes a response with status code 201, with default header values.
 
 DcimRackGroupsCreateCreated dcim rack groups create created
 */
@@ -72,7 +65,6 @@ type DcimRackGroupsCreateCreated struct {
 func (o *DcimRackGroupsCreateCreated) Error() string {
 	return fmt.Sprintf("[POST /dcim/rack-groups/][%d] dcimRackGroupsCreateCreated  %+v", 201, o.Payload)
 }
-
 func (o *DcimRackGroupsCreateCreated) GetPayload() *models.RackGroup {
 	return o.Payload
 }
@@ -83,46 +75,6 @@ func (o *DcimRackGroupsCreateCreated) readResponse(response runtime.ClientRespon
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDcimRackGroupsCreateDefault creates a DcimRackGroupsCreateDefault with default headers values
-func NewDcimRackGroupsCreateDefault(code int) *DcimRackGroupsCreateDefault {
-	return &DcimRackGroupsCreateDefault{
-		_statusCode: code,
-	}
-}
-
-/*DcimRackGroupsCreateDefault handles this case with default header values.
-
-DcimRackGroupsCreateDefault dcim rack groups create default
-*/
-type DcimRackGroupsCreateDefault struct {
-	_statusCode int
-
-	Payload interface{}
-}
-
-// Code gets the status code for the dcim rack groups create default response
-func (o *DcimRackGroupsCreateDefault) Code() int {
-	return o._statusCode
-}
-
-func (o *DcimRackGroupsCreateDefault) Error() string {
-	return fmt.Sprintf("[POST /dcim/rack-groups/][%d] dcim_rack-groups_create default  %+v", o._statusCode, o.Payload)
-}
-
-func (o *DcimRackGroupsCreateDefault) GetPayload() interface{} {
-	return o.Payload
-}
-
-func (o *DcimRackGroupsCreateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

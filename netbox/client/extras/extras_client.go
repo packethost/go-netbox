@@ -42,9 +42,11 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	ExtrasCustomFieldChoicesList(params *ExtrasCustomFieldChoicesListParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasCustomFieldChoicesListOK, error)
+	ExtrasConfigContextsBulkDelete(params *ExtrasConfigContextsBulkDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasConfigContextsBulkDeleteNoContent, error)
 
-	ExtrasCustomFieldChoicesRead(params *ExtrasCustomFieldChoicesReadParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasCustomFieldChoicesReadOK, error)
+	ExtrasConfigContextsBulkPartialUpdate(params *ExtrasConfigContextsBulkPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasConfigContextsBulkPartialUpdateOK, error)
+
+	ExtrasConfigContextsBulkUpdate(params *ExtrasConfigContextsBulkUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasConfigContextsBulkUpdateOK, error)
 
 	ExtrasConfigContextsCreate(params *ExtrasConfigContextsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasConfigContextsCreateCreated, error)
 
@@ -58,6 +60,34 @@ type ClientService interface {
 
 	ExtrasConfigContextsUpdate(params *ExtrasConfigContextsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasConfigContextsUpdateOK, error)
 
+	ExtrasContentTypesList(params *ExtrasContentTypesListParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasContentTypesListOK, error)
+
+	ExtrasContentTypesRead(params *ExtrasContentTypesReadParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasContentTypesReadOK, error)
+
+	ExtrasCustomFieldsBulkDelete(params *ExtrasCustomFieldsBulkDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasCustomFieldsBulkDeleteNoContent, error)
+
+	ExtrasCustomFieldsBulkPartialUpdate(params *ExtrasCustomFieldsBulkPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasCustomFieldsBulkPartialUpdateOK, error)
+
+	ExtrasCustomFieldsBulkUpdate(params *ExtrasCustomFieldsBulkUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasCustomFieldsBulkUpdateOK, error)
+
+	ExtrasCustomFieldsCreate(params *ExtrasCustomFieldsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasCustomFieldsCreateCreated, error)
+
+	ExtrasCustomFieldsDelete(params *ExtrasCustomFieldsDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasCustomFieldsDeleteNoContent, error)
+
+	ExtrasCustomFieldsList(params *ExtrasCustomFieldsListParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasCustomFieldsListOK, error)
+
+	ExtrasCustomFieldsPartialUpdate(params *ExtrasCustomFieldsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasCustomFieldsPartialUpdateOK, error)
+
+	ExtrasCustomFieldsRead(params *ExtrasCustomFieldsReadParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasCustomFieldsReadOK, error)
+
+	ExtrasCustomFieldsUpdate(params *ExtrasCustomFieldsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasCustomFieldsUpdateOK, error)
+
+	ExtrasExportTemplatesBulkDelete(params *ExtrasExportTemplatesBulkDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasExportTemplatesBulkDeleteNoContent, error)
+
+	ExtrasExportTemplatesBulkPartialUpdate(params *ExtrasExportTemplatesBulkPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasExportTemplatesBulkPartialUpdateOK, error)
+
+	ExtrasExportTemplatesBulkUpdate(params *ExtrasExportTemplatesBulkUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasExportTemplatesBulkUpdateOK, error)
+
 	ExtrasExportTemplatesCreate(params *ExtrasExportTemplatesCreateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasExportTemplatesCreateCreated, error)
 
 	ExtrasExportTemplatesDelete(params *ExtrasExportTemplatesDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasExportTemplatesDeleteNoContent, error)
@@ -70,17 +100,11 @@ type ClientService interface {
 
 	ExtrasExportTemplatesUpdate(params *ExtrasExportTemplatesUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasExportTemplatesUpdateOK, error)
 
-	ExtrasGraphsCreate(params *ExtrasGraphsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasGraphsCreateCreated, error)
+	ExtrasImageAttachmentsBulkDelete(params *ExtrasImageAttachmentsBulkDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasImageAttachmentsBulkDeleteNoContent, error)
 
-	ExtrasGraphsDelete(params *ExtrasGraphsDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasGraphsDeleteNoContent, error)
+	ExtrasImageAttachmentsBulkPartialUpdate(params *ExtrasImageAttachmentsBulkPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasImageAttachmentsBulkPartialUpdateOK, error)
 
-	ExtrasGraphsList(params *ExtrasGraphsListParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasGraphsListOK, error)
-
-	ExtrasGraphsPartialUpdate(params *ExtrasGraphsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasGraphsPartialUpdateOK, error)
-
-	ExtrasGraphsRead(params *ExtrasGraphsReadParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasGraphsReadOK, error)
-
-	ExtrasGraphsUpdate(params *ExtrasGraphsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasGraphsUpdateOK, error)
+	ExtrasImageAttachmentsBulkUpdate(params *ExtrasImageAttachmentsBulkUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasImageAttachmentsBulkUpdateOK, error)
 
 	ExtrasImageAttachmentsCreate(params *ExtrasImageAttachmentsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasImageAttachmentsCreateCreated, error)
 
@@ -112,6 +136,12 @@ type ClientService interface {
 
 	ExtrasScriptsRead(params *ExtrasScriptsReadParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasScriptsReadOK, error)
 
+	ExtrasTagsBulkDelete(params *ExtrasTagsBulkDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasTagsBulkDeleteNoContent, error)
+
+	ExtrasTagsBulkPartialUpdate(params *ExtrasTagsBulkPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasTagsBulkPartialUpdateOK, error)
+
+	ExtrasTagsBulkUpdate(params *ExtrasTagsBulkUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasTagsBulkUpdateOK, error)
+
 	ExtrasTagsCreate(params *ExtrasTagsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasTagsCreateCreated, error)
 
 	ExtrasTagsDelete(params *ExtrasTagsDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasTagsDeleteNoContent, error)
@@ -128,23 +158,23 @@ type ClientService interface {
 }
 
 /*
-  ExtrasCustomFieldChoicesList extras custom field choices list API
+  ExtrasConfigContextsBulkDelete extras config contexts bulk delete API
 */
-func (a *Client) ExtrasCustomFieldChoicesList(params *ExtrasCustomFieldChoicesListParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasCustomFieldChoicesListOK, error) {
+func (a *Client) ExtrasConfigContextsBulkDelete(params *ExtrasConfigContextsBulkDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasConfigContextsBulkDeleteNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewExtrasCustomFieldChoicesListParams()
+		params = NewExtrasConfigContextsBulkDeleteParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "extras__custom_field_choices_list",
-		Method:             "GET",
-		PathPattern:        "/extras/_custom_field_choices/",
+		ID:                 "extras_config-contexts_bulk_delete",
+		Method:             "DELETE",
+		PathPattern:        "/extras/config-contexts/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &ExtrasCustomFieldChoicesListReader{formats: a.formats},
+		Reader:             &ExtrasConfigContextsBulkDeleteReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -152,34 +182,34 @@ func (a *Client) ExtrasCustomFieldChoicesList(params *ExtrasCustomFieldChoicesLi
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*ExtrasCustomFieldChoicesListOK)
+	success, ok := result.(*ExtrasConfigContextsBulkDeleteNoContent)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for extras__custom_field_choices_list: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for extras_config-contexts_bulk_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  ExtrasCustomFieldChoicesRead extras custom field choices read API
+  ExtrasConfigContextsBulkPartialUpdate extras config contexts bulk partial update API
 */
-func (a *Client) ExtrasCustomFieldChoicesRead(params *ExtrasCustomFieldChoicesReadParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasCustomFieldChoicesReadOK, error) {
+func (a *Client) ExtrasConfigContextsBulkPartialUpdate(params *ExtrasConfigContextsBulkPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasConfigContextsBulkPartialUpdateOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewExtrasCustomFieldChoicesReadParams()
+		params = NewExtrasConfigContextsBulkPartialUpdateParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "extras__custom_field_choices_read",
-		Method:             "GET",
-		PathPattern:        "/extras/_custom_field_choices/{id}/",
+		ID:                 "extras_config-contexts_bulk_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/extras/config-contexts/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &ExtrasCustomFieldChoicesReadReader{formats: a.formats},
+		Reader:             &ExtrasConfigContextsBulkPartialUpdateReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -187,13 +217,48 @@ func (a *Client) ExtrasCustomFieldChoicesRead(params *ExtrasCustomFieldChoicesRe
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*ExtrasCustomFieldChoicesReadOK)
+	success, ok := result.(*ExtrasConfigContextsBulkPartialUpdateOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for extras__custom_field_choices_read: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for extras_config-contexts_bulk_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ExtrasConfigContextsBulkUpdate extras config contexts bulk update API
+*/
+func (a *Client) ExtrasConfigContextsBulkUpdate(params *ExtrasConfigContextsBulkUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasConfigContextsBulkUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasConfigContextsBulkUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "extras_config-contexts_bulk_update",
+		Method:             "PUT",
+		PathPattern:        "/extras/config-contexts/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ExtrasConfigContextsBulkUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasConfigContextsBulkUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_config-contexts_bulk_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -212,7 +277,7 @@ func (a *Client) ExtrasConfigContextsCreate(params *ExtrasConfigContextsCreatePa
 		PathPattern:        "/extras/config-contexts/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasConfigContextsCreateReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -227,8 +292,9 @@ func (a *Client) ExtrasConfigContextsCreate(params *ExtrasConfigContextsCreatePa
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*ExtrasConfigContextsCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_config-contexts_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -246,7 +312,7 @@ func (a *Client) ExtrasConfigContextsDelete(params *ExtrasConfigContextsDeletePa
 		PathPattern:        "/extras/config-contexts/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasConfigContextsDeleteReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -281,7 +347,7 @@ func (a *Client) ExtrasConfigContextsList(params *ExtrasConfigContextsListParams
 		PathPattern:        "/extras/config-contexts/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasConfigContextsListReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -316,7 +382,7 @@ func (a *Client) ExtrasConfigContextsPartialUpdate(params *ExtrasConfigContextsP
 		PathPattern:        "/extras/config-contexts/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasConfigContextsPartialUpdateReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -331,8 +397,9 @@ func (a *Client) ExtrasConfigContextsPartialUpdate(params *ExtrasConfigContextsP
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*ExtrasConfigContextsPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_config-contexts_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -350,7 +417,7 @@ func (a *Client) ExtrasConfigContextsRead(params *ExtrasConfigContextsReadParams
 		PathPattern:        "/extras/config-contexts/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasConfigContextsReadReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -385,7 +452,7 @@ func (a *Client) ExtrasConfigContextsUpdate(params *ExtrasConfigContextsUpdatePa
 		PathPattern:        "/extras/config-contexts/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasConfigContextsUpdateReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -400,8 +467,499 @@ func (a *Client) ExtrasConfigContextsUpdate(params *ExtrasConfigContextsUpdatePa
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*ExtrasConfigContextsUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_config-contexts_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ExtrasContentTypesList Read-only list of ContentTypes. Limit results to ContentTypes pertinent to NetBox objects.
+*/
+func (a *Client) ExtrasContentTypesList(params *ExtrasContentTypesListParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasContentTypesListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasContentTypesListParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "extras_content-types_list",
+		Method:             "GET",
+		PathPattern:        "/extras/content-types/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ExtrasContentTypesListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasContentTypesListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_content-types_list: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ExtrasContentTypesRead Read-only list of ContentTypes. Limit results to ContentTypes pertinent to NetBox objects.
+*/
+func (a *Client) ExtrasContentTypesRead(params *ExtrasContentTypesReadParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasContentTypesReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasContentTypesReadParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "extras_content-types_read",
+		Method:             "GET",
+		PathPattern:        "/extras/content-types/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ExtrasContentTypesReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasContentTypesReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_content-types_read: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ExtrasCustomFieldsBulkDelete extras custom fields bulk delete API
+*/
+func (a *Client) ExtrasCustomFieldsBulkDelete(params *ExtrasCustomFieldsBulkDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasCustomFieldsBulkDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasCustomFieldsBulkDeleteParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "extras_custom-fields_bulk_delete",
+		Method:             "DELETE",
+		PathPattern:        "/extras/custom-fields/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ExtrasCustomFieldsBulkDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasCustomFieldsBulkDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_custom-fields_bulk_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ExtrasCustomFieldsBulkPartialUpdate extras custom fields bulk partial update API
+*/
+func (a *Client) ExtrasCustomFieldsBulkPartialUpdate(params *ExtrasCustomFieldsBulkPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasCustomFieldsBulkPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasCustomFieldsBulkPartialUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "extras_custom-fields_bulk_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/extras/custom-fields/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ExtrasCustomFieldsBulkPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasCustomFieldsBulkPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_custom-fields_bulk_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ExtrasCustomFieldsBulkUpdate extras custom fields bulk update API
+*/
+func (a *Client) ExtrasCustomFieldsBulkUpdate(params *ExtrasCustomFieldsBulkUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasCustomFieldsBulkUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasCustomFieldsBulkUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "extras_custom-fields_bulk_update",
+		Method:             "PUT",
+		PathPattern:        "/extras/custom-fields/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ExtrasCustomFieldsBulkUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasCustomFieldsBulkUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_custom-fields_bulk_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ExtrasCustomFieldsCreate extras custom fields create API
+*/
+func (a *Client) ExtrasCustomFieldsCreate(params *ExtrasCustomFieldsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasCustomFieldsCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasCustomFieldsCreateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "extras_custom-fields_create",
+		Method:             "POST",
+		PathPattern:        "/extras/custom-fields/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ExtrasCustomFieldsCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasCustomFieldsCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_custom-fields_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ExtrasCustomFieldsDelete extras custom fields delete API
+*/
+func (a *Client) ExtrasCustomFieldsDelete(params *ExtrasCustomFieldsDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasCustomFieldsDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasCustomFieldsDeleteParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "extras_custom-fields_delete",
+		Method:             "DELETE",
+		PathPattern:        "/extras/custom-fields/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ExtrasCustomFieldsDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasCustomFieldsDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_custom-fields_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ExtrasCustomFieldsList extras custom fields list API
+*/
+func (a *Client) ExtrasCustomFieldsList(params *ExtrasCustomFieldsListParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasCustomFieldsListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasCustomFieldsListParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "extras_custom-fields_list",
+		Method:             "GET",
+		PathPattern:        "/extras/custom-fields/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ExtrasCustomFieldsListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasCustomFieldsListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_custom-fields_list: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ExtrasCustomFieldsPartialUpdate extras custom fields partial update API
+*/
+func (a *Client) ExtrasCustomFieldsPartialUpdate(params *ExtrasCustomFieldsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasCustomFieldsPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasCustomFieldsPartialUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "extras_custom-fields_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/extras/custom-fields/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ExtrasCustomFieldsPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasCustomFieldsPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_custom-fields_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ExtrasCustomFieldsRead extras custom fields read API
+*/
+func (a *Client) ExtrasCustomFieldsRead(params *ExtrasCustomFieldsReadParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasCustomFieldsReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasCustomFieldsReadParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "extras_custom-fields_read",
+		Method:             "GET",
+		PathPattern:        "/extras/custom-fields/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ExtrasCustomFieldsReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasCustomFieldsReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_custom-fields_read: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ExtrasCustomFieldsUpdate extras custom fields update API
+*/
+func (a *Client) ExtrasCustomFieldsUpdate(params *ExtrasCustomFieldsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasCustomFieldsUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasCustomFieldsUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "extras_custom-fields_update",
+		Method:             "PUT",
+		PathPattern:        "/extras/custom-fields/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ExtrasCustomFieldsUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasCustomFieldsUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_custom-fields_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ExtrasExportTemplatesBulkDelete extras export templates bulk delete API
+*/
+func (a *Client) ExtrasExportTemplatesBulkDelete(params *ExtrasExportTemplatesBulkDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasExportTemplatesBulkDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasExportTemplatesBulkDeleteParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "extras_export-templates_bulk_delete",
+		Method:             "DELETE",
+		PathPattern:        "/extras/export-templates/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ExtrasExportTemplatesBulkDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasExportTemplatesBulkDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_export-templates_bulk_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ExtrasExportTemplatesBulkPartialUpdate extras export templates bulk partial update API
+*/
+func (a *Client) ExtrasExportTemplatesBulkPartialUpdate(params *ExtrasExportTemplatesBulkPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasExportTemplatesBulkPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasExportTemplatesBulkPartialUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "extras_export-templates_bulk_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/extras/export-templates/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ExtrasExportTemplatesBulkPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasExportTemplatesBulkPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_export-templates_bulk_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ExtrasExportTemplatesBulkUpdate extras export templates bulk update API
+*/
+func (a *Client) ExtrasExportTemplatesBulkUpdate(params *ExtrasExportTemplatesBulkUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasExportTemplatesBulkUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasExportTemplatesBulkUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "extras_export-templates_bulk_update",
+		Method:             "PUT",
+		PathPattern:        "/extras/export-templates/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ExtrasExportTemplatesBulkUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasExportTemplatesBulkUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_export-templates_bulk_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -419,7 +977,7 @@ func (a *Client) ExtrasExportTemplatesCreate(params *ExtrasExportTemplatesCreate
 		PathPattern:        "/extras/export-templates/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasExportTemplatesCreateReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -434,8 +992,9 @@ func (a *Client) ExtrasExportTemplatesCreate(params *ExtrasExportTemplatesCreate
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*ExtrasExportTemplatesCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_export-templates_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -453,7 +1012,7 @@ func (a *Client) ExtrasExportTemplatesDelete(params *ExtrasExportTemplatesDelete
 		PathPattern:        "/extras/export-templates/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasExportTemplatesDeleteReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -488,7 +1047,7 @@ func (a *Client) ExtrasExportTemplatesList(params *ExtrasExportTemplatesListPara
 		PathPattern:        "/extras/export-templates/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasExportTemplatesListReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -523,7 +1082,7 @@ func (a *Client) ExtrasExportTemplatesPartialUpdate(params *ExtrasExportTemplate
 		PathPattern:        "/extras/export-templates/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasExportTemplatesPartialUpdateReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -538,8 +1097,9 @@ func (a *Client) ExtrasExportTemplatesPartialUpdate(params *ExtrasExportTemplate
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*ExtrasExportTemplatesPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_export-templates_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -557,7 +1117,7 @@ func (a *Client) ExtrasExportTemplatesRead(params *ExtrasExportTemplatesReadPara
 		PathPattern:        "/extras/export-templates/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasExportTemplatesReadReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -592,7 +1152,7 @@ func (a *Client) ExtrasExportTemplatesUpdate(params *ExtrasExportTemplatesUpdate
 		PathPattern:        "/extras/export-templates/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasExportTemplatesUpdateReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -607,62 +1167,29 @@ func (a *Client) ExtrasExportTemplatesUpdate(params *ExtrasExportTemplatesUpdate
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*ExtrasExportTemplatesUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_export-templates_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-  ExtrasGraphsCreate extras graphs create API
+  ExtrasImageAttachmentsBulkDelete extras image attachments bulk delete API
 */
-func (a *Client) ExtrasGraphsCreate(params *ExtrasGraphsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasGraphsCreateCreated, error) {
+func (a *Client) ExtrasImageAttachmentsBulkDelete(params *ExtrasImageAttachmentsBulkDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasImageAttachmentsBulkDeleteNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewExtrasGraphsCreateParams()
+		params = NewExtrasImageAttachmentsBulkDeleteParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "extras_graphs_create",
-		Method:             "POST",
-		PathPattern:        "/extras/graphs/",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &ExtrasGraphsCreateReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*ExtrasGraphsCreateCreated)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*ExtrasGraphsCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-  ExtrasGraphsDelete extras graphs delete API
-*/
-func (a *Client) ExtrasGraphsDelete(params *ExtrasGraphsDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasGraphsDeleteNoContent, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewExtrasGraphsDeleteParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "extras_graphs_delete",
+		ID:                 "extras_image-attachments_bulk_delete",
 		Method:             "DELETE",
-		PathPattern:        "/extras/graphs/{id}/",
+		PathPattern:        "/extras/image-attachments/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &ExtrasGraphsDeleteReader{formats: a.formats},
+		Reader:             &ExtrasImageAttachmentsBulkDeleteReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -670,69 +1197,34 @@ func (a *Client) ExtrasGraphsDelete(params *ExtrasGraphsDeleteParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*ExtrasGraphsDeleteNoContent)
+	success, ok := result.(*ExtrasImageAttachmentsBulkDeleteNoContent)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for extras_graphs_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for extras_image-attachments_bulk_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  ExtrasGraphsList extras graphs list API
+  ExtrasImageAttachmentsBulkPartialUpdate extras image attachments bulk partial update API
 */
-func (a *Client) ExtrasGraphsList(params *ExtrasGraphsListParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasGraphsListOK, error) {
+func (a *Client) ExtrasImageAttachmentsBulkPartialUpdate(params *ExtrasImageAttachmentsBulkPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasImageAttachmentsBulkPartialUpdateOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewExtrasGraphsListParams()
+		params = NewExtrasImageAttachmentsBulkPartialUpdateParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "extras_graphs_list",
-		Method:             "GET",
-		PathPattern:        "/extras/graphs/",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &ExtrasGraphsListReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*ExtrasGraphsListOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for extras_graphs_list: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  ExtrasGraphsPartialUpdate extras graphs partial update API
-*/
-func (a *Client) ExtrasGraphsPartialUpdate(params *ExtrasGraphsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasGraphsPartialUpdateOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewExtrasGraphsPartialUpdateParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "extras_graphs_partial_update",
+		ID:                 "extras_image-attachments_bulk_partial_update",
 		Method:             "PATCH",
-		PathPattern:        "/extras/graphs/{id}/",
+		PathPattern:        "/extras/image-attachments/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &ExtrasGraphsPartialUpdateReader{formats: a.formats},
+		Reader:             &ExtrasImageAttachmentsBulkPartialUpdateReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -740,68 +1232,34 @@ func (a *Client) ExtrasGraphsPartialUpdate(params *ExtrasGraphsPartialUpdatePara
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*ExtrasGraphsPartialUpdateOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	unexpectedSuccess := result.(*ExtrasGraphsPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
-}
-
-/*
-  ExtrasGraphsRead extras graphs read API
-*/
-func (a *Client) ExtrasGraphsRead(params *ExtrasGraphsReadParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasGraphsReadOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewExtrasGraphsReadParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "extras_graphs_read",
-		Method:             "GET",
-		PathPattern:        "/extras/graphs/{id}/",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &ExtrasGraphsReadReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*ExtrasGraphsReadOK)
+	success, ok := result.(*ExtrasImageAttachmentsBulkPartialUpdateOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for extras_graphs_read: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for extras_image-attachments_bulk_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  ExtrasGraphsUpdate extras graphs update API
+  ExtrasImageAttachmentsBulkUpdate extras image attachments bulk update API
 */
-func (a *Client) ExtrasGraphsUpdate(params *ExtrasGraphsUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasGraphsUpdateOK, error) {
+func (a *Client) ExtrasImageAttachmentsBulkUpdate(params *ExtrasImageAttachmentsBulkUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasImageAttachmentsBulkUpdateOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewExtrasGraphsUpdateParams()
+		params = NewExtrasImageAttachmentsBulkUpdateParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "extras_graphs_update",
+		ID:                 "extras_image-attachments_bulk_update",
 		Method:             "PUT",
-		PathPattern:        "/extras/graphs/{id}/",
+		PathPattern:        "/extras/image-attachments/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &ExtrasGraphsUpdateReader{formats: a.formats},
+		Reader:             &ExtrasImageAttachmentsBulkUpdateReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -809,13 +1267,14 @@ func (a *Client) ExtrasGraphsUpdate(params *ExtrasGraphsUpdateParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*ExtrasGraphsUpdateOK)
+	success, ok := result.(*ExtrasImageAttachmentsBulkUpdateOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*ExtrasGraphsUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_image-attachments_bulk_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -833,7 +1292,7 @@ func (a *Client) ExtrasImageAttachmentsCreate(params *ExtrasImageAttachmentsCrea
 		PathPattern:        "/extras/image-attachments/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasImageAttachmentsCreateReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -848,8 +1307,9 @@ func (a *Client) ExtrasImageAttachmentsCreate(params *ExtrasImageAttachmentsCrea
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*ExtrasImageAttachmentsCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_image-attachments_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -867,7 +1327,7 @@ func (a *Client) ExtrasImageAttachmentsDelete(params *ExtrasImageAttachmentsDele
 		PathPattern:        "/extras/image-attachments/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasImageAttachmentsDeleteReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -902,7 +1362,7 @@ func (a *Client) ExtrasImageAttachmentsList(params *ExtrasImageAttachmentsListPa
 		PathPattern:        "/extras/image-attachments/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasImageAttachmentsListReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -937,7 +1397,7 @@ func (a *Client) ExtrasImageAttachmentsPartialUpdate(params *ExtrasImageAttachme
 		PathPattern:        "/extras/image-attachments/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasImageAttachmentsPartialUpdateReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -952,8 +1412,9 @@ func (a *Client) ExtrasImageAttachmentsPartialUpdate(params *ExtrasImageAttachme
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*ExtrasImageAttachmentsPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_image-attachments_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -971,7 +1432,7 @@ func (a *Client) ExtrasImageAttachmentsRead(params *ExtrasImageAttachmentsReadPa
 		PathPattern:        "/extras/image-attachments/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasImageAttachmentsReadReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -1006,7 +1467,7 @@ func (a *Client) ExtrasImageAttachmentsUpdate(params *ExtrasImageAttachmentsUpda
 		PathPattern:        "/extras/image-attachments/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasImageAttachmentsUpdateReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -1021,8 +1482,9 @@ func (a *Client) ExtrasImageAttachmentsUpdate(params *ExtrasImageAttachmentsUpda
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*ExtrasImageAttachmentsUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_image-attachments_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -1040,7 +1502,7 @@ func (a *Client) ExtrasJobResultsList(params *ExtrasJobResultsListParams, authIn
 		PathPattern:        "/extras/job-results/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasJobResultsListReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -1075,7 +1537,7 @@ func (a *Client) ExtrasJobResultsRead(params *ExtrasJobResultsReadParams, authIn
 		PathPattern:        "/extras/job-results/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasJobResultsReadReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -1110,7 +1572,7 @@ func (a *Client) ExtrasObjectChangesList(params *ExtrasObjectChangesListParams, 
 		PathPattern:        "/extras/object-changes/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasObjectChangesListReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -1145,7 +1607,7 @@ func (a *Client) ExtrasObjectChangesRead(params *ExtrasObjectChangesReadParams, 
 		PathPattern:        "/extras/object-changes/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasObjectChangesReadReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -1180,7 +1642,7 @@ func (a *Client) ExtrasReportsList(params *ExtrasReportsListParams, authInfo run
 		PathPattern:        "/extras/reports/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasReportsListReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -1215,7 +1677,7 @@ func (a *Client) ExtrasReportsRead(params *ExtrasReportsReadParams, authInfo run
 		PathPattern:        "/extras/reports/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasReportsReadReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -1250,7 +1712,7 @@ func (a *Client) ExtrasReportsRun(params *ExtrasReportsRunParams, authInfo runti
 		PathPattern:        "/extras/reports/{id}/run/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasReportsRunReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -1265,8 +1727,9 @@ func (a *Client) ExtrasReportsRun(params *ExtrasReportsRunParams, authInfo runti
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*ExtrasReportsRunDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_reports_run: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -1284,7 +1747,7 @@ func (a *Client) ExtrasScriptsList(params *ExtrasScriptsListParams, authInfo run
 		PathPattern:        "/extras/scripts/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasScriptsListReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -1319,7 +1782,7 @@ func (a *Client) ExtrasScriptsRead(params *ExtrasScriptsReadParams, authInfo run
 		PathPattern:        "/extras/scripts/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasScriptsReadReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -1340,6 +1803,111 @@ func (a *Client) ExtrasScriptsRead(params *ExtrasScriptsReadParams, authInfo run
 }
 
 /*
+  ExtrasTagsBulkDelete extras tags bulk delete API
+*/
+func (a *Client) ExtrasTagsBulkDelete(params *ExtrasTagsBulkDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasTagsBulkDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasTagsBulkDeleteParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "extras_tags_bulk_delete",
+		Method:             "DELETE",
+		PathPattern:        "/extras/tags/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ExtrasTagsBulkDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasTagsBulkDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_tags_bulk_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ExtrasTagsBulkPartialUpdate extras tags bulk partial update API
+*/
+func (a *Client) ExtrasTagsBulkPartialUpdate(params *ExtrasTagsBulkPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasTagsBulkPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasTagsBulkPartialUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "extras_tags_bulk_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/extras/tags/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ExtrasTagsBulkPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasTagsBulkPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_tags_bulk_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ExtrasTagsBulkUpdate extras tags bulk update API
+*/
+func (a *Client) ExtrasTagsBulkUpdate(params *ExtrasTagsBulkUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasTagsBulkUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasTagsBulkUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "extras_tags_bulk_update",
+		Method:             "PUT",
+		PathPattern:        "/extras/tags/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ExtrasTagsBulkUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasTagsBulkUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_tags_bulk_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   ExtrasTagsCreate extras tags create API
 */
 func (a *Client) ExtrasTagsCreate(params *ExtrasTagsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*ExtrasTagsCreateCreated, error) {
@@ -1354,7 +1922,7 @@ func (a *Client) ExtrasTagsCreate(params *ExtrasTagsCreateParams, authInfo runti
 		PathPattern:        "/extras/tags/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasTagsCreateReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -1369,8 +1937,9 @@ func (a *Client) ExtrasTagsCreate(params *ExtrasTagsCreateParams, authInfo runti
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*ExtrasTagsCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_tags_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -1388,7 +1957,7 @@ func (a *Client) ExtrasTagsDelete(params *ExtrasTagsDeleteParams, authInfo runti
 		PathPattern:        "/extras/tags/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasTagsDeleteReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -1423,7 +1992,7 @@ func (a *Client) ExtrasTagsList(params *ExtrasTagsListParams, authInfo runtime.C
 		PathPattern:        "/extras/tags/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasTagsListReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -1458,7 +2027,7 @@ func (a *Client) ExtrasTagsPartialUpdate(params *ExtrasTagsPartialUpdateParams, 
 		PathPattern:        "/extras/tags/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasTagsPartialUpdateReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -1473,8 +2042,9 @@ func (a *Client) ExtrasTagsPartialUpdate(params *ExtrasTagsPartialUpdateParams, 
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*ExtrasTagsPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_tags_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -1492,7 +2062,7 @@ func (a *Client) ExtrasTagsRead(params *ExtrasTagsReadParams, authInfo runtime.C
 		PathPattern:        "/extras/tags/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasTagsReadReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -1527,7 +2097,7 @@ func (a *Client) ExtrasTagsUpdate(params *ExtrasTagsUpdateParams, authInfo runti
 		PathPattern:        "/extras/tags/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ExtrasTagsUpdateReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -1542,8 +2112,9 @@ func (a *Client) ExtrasTagsUpdate(params *ExtrasTagsUpdateParams, authInfo runti
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*ExtrasTagsUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extras_tags_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

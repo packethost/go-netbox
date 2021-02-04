@@ -46,6 +46,12 @@ type ClientService interface {
 
 	SecretsGetSessionKeyCreate(params *SecretsGetSessionKeyCreateParams, authInfo runtime.ClientAuthInfoWriter) (*SecretsGetSessionKeyCreateCreated, error)
 
+	SecretsSecretRolesBulkDelete(params *SecretsSecretRolesBulkDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*SecretsSecretRolesBulkDeleteNoContent, error)
+
+	SecretsSecretRolesBulkPartialUpdate(params *SecretsSecretRolesBulkPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*SecretsSecretRolesBulkPartialUpdateOK, error)
+
+	SecretsSecretRolesBulkUpdate(params *SecretsSecretRolesBulkUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*SecretsSecretRolesBulkUpdateOK, error)
+
 	SecretsSecretRolesCreate(params *SecretsSecretRolesCreateParams, authInfo runtime.ClientAuthInfoWriter) (*SecretsSecretRolesCreateCreated, error)
 
 	SecretsSecretRolesDelete(params *SecretsSecretRolesDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*SecretsSecretRolesDeleteNoContent, error)
@@ -57,6 +63,12 @@ type ClientService interface {
 	SecretsSecretRolesRead(params *SecretsSecretRolesReadParams, authInfo runtime.ClientAuthInfoWriter) (*SecretsSecretRolesReadOK, error)
 
 	SecretsSecretRolesUpdate(params *SecretsSecretRolesUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*SecretsSecretRolesUpdateOK, error)
+
+	SecretsSecretsBulkDelete(params *SecretsSecretsBulkDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*SecretsSecretsBulkDeleteNoContent, error)
+
+	SecretsSecretsBulkPartialUpdate(params *SecretsSecretsBulkPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*SecretsSecretsBulkPartialUpdateOK, error)
+
+	SecretsSecretsBulkUpdate(params *SecretsSecretsBulkUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*SecretsSecretsBulkUpdateOK, error)
 
 	SecretsSecretsCreate(params *SecretsSecretsCreateParams, authInfo runtime.ClientAuthInfoWriter) (*SecretsSecretsCreateCreated, error)
 
@@ -93,7 +105,7 @@ func (a *Client) SecretsGenerateRsaKeyPairList(params *SecretsGenerateRsaKeyPair
 		PathPattern:        "/secrets/generate-rsa-key-pair/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SecretsGenerateRsaKeyPairListReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -141,7 +153,7 @@ func (a *Client) SecretsGetSessionKeyCreate(params *SecretsGetSessionKeyCreatePa
 		PathPattern:        "/secrets/get-session-key/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SecretsGetSessionKeyCreateReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -156,8 +168,114 @@ func (a *Client) SecretsGetSessionKeyCreate(params *SecretsGetSessionKeyCreatePa
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*SecretsGetSessionKeyCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for secrets_get-session-key_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  SecretsSecretRolesBulkDelete secrets secret roles bulk delete API
+*/
+func (a *Client) SecretsSecretRolesBulkDelete(params *SecretsSecretRolesBulkDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*SecretsSecretRolesBulkDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSecretsSecretRolesBulkDeleteParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "secrets_secret-roles_bulk_delete",
+		Method:             "DELETE",
+		PathPattern:        "/secrets/secret-roles/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SecretsSecretRolesBulkDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*SecretsSecretRolesBulkDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for secrets_secret-roles_bulk_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  SecretsSecretRolesBulkPartialUpdate secrets secret roles bulk partial update API
+*/
+func (a *Client) SecretsSecretRolesBulkPartialUpdate(params *SecretsSecretRolesBulkPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*SecretsSecretRolesBulkPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSecretsSecretRolesBulkPartialUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "secrets_secret-roles_bulk_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/secrets/secret-roles/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SecretsSecretRolesBulkPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*SecretsSecretRolesBulkPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for secrets_secret-roles_bulk_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  SecretsSecretRolesBulkUpdate secrets secret roles bulk update API
+*/
+func (a *Client) SecretsSecretRolesBulkUpdate(params *SecretsSecretRolesBulkUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*SecretsSecretRolesBulkUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSecretsSecretRolesBulkUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "secrets_secret-roles_bulk_update",
+		Method:             "PUT",
+		PathPattern:        "/secrets/secret-roles/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SecretsSecretRolesBulkUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*SecretsSecretRolesBulkUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for secrets_secret-roles_bulk_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -175,7 +293,7 @@ func (a *Client) SecretsSecretRolesCreate(params *SecretsSecretRolesCreateParams
 		PathPattern:        "/secrets/secret-roles/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SecretsSecretRolesCreateReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -190,8 +308,9 @@ func (a *Client) SecretsSecretRolesCreate(params *SecretsSecretRolesCreateParams
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*SecretsSecretRolesCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for secrets_secret-roles_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -209,7 +328,7 @@ func (a *Client) SecretsSecretRolesDelete(params *SecretsSecretRolesDeleteParams
 		PathPattern:        "/secrets/secret-roles/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SecretsSecretRolesDeleteReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -244,7 +363,7 @@ func (a *Client) SecretsSecretRolesList(params *SecretsSecretRolesListParams, au
 		PathPattern:        "/secrets/secret-roles/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SecretsSecretRolesListReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -279,7 +398,7 @@ func (a *Client) SecretsSecretRolesPartialUpdate(params *SecretsSecretRolesParti
 		PathPattern:        "/secrets/secret-roles/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SecretsSecretRolesPartialUpdateReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -294,8 +413,9 @@ func (a *Client) SecretsSecretRolesPartialUpdate(params *SecretsSecretRolesParti
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*SecretsSecretRolesPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for secrets_secret-roles_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -313,7 +433,7 @@ func (a *Client) SecretsSecretRolesRead(params *SecretsSecretRolesReadParams, au
 		PathPattern:        "/secrets/secret-roles/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SecretsSecretRolesReadReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -348,7 +468,7 @@ func (a *Client) SecretsSecretRolesUpdate(params *SecretsSecretRolesUpdateParams
 		PathPattern:        "/secrets/secret-roles/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SecretsSecretRolesUpdateReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -363,8 +483,114 @@ func (a *Client) SecretsSecretRolesUpdate(params *SecretsSecretRolesUpdateParams
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*SecretsSecretRolesUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for secrets_secret-roles_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  SecretsSecretsBulkDelete secrets secrets bulk delete API
+*/
+func (a *Client) SecretsSecretsBulkDelete(params *SecretsSecretsBulkDeleteParams, authInfo runtime.ClientAuthInfoWriter) (*SecretsSecretsBulkDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSecretsSecretsBulkDeleteParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "secrets_secrets_bulk_delete",
+		Method:             "DELETE",
+		PathPattern:        "/secrets/secrets/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SecretsSecretsBulkDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*SecretsSecretsBulkDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for secrets_secrets_bulk_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  SecretsSecretsBulkPartialUpdate secrets secrets bulk partial update API
+*/
+func (a *Client) SecretsSecretsBulkPartialUpdate(params *SecretsSecretsBulkPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*SecretsSecretsBulkPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSecretsSecretsBulkPartialUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "secrets_secrets_bulk_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/secrets/secrets/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SecretsSecretsBulkPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*SecretsSecretsBulkPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for secrets_secrets_bulk_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  SecretsSecretsBulkUpdate secrets secrets bulk update API
+*/
+func (a *Client) SecretsSecretsBulkUpdate(params *SecretsSecretsBulkUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*SecretsSecretsBulkUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSecretsSecretsBulkUpdateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "secrets_secrets_bulk_update",
+		Method:             "PUT",
+		PathPattern:        "/secrets/secrets/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SecretsSecretsBulkUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*SecretsSecretsBulkUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for secrets_secrets_bulk_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -382,7 +608,7 @@ func (a *Client) SecretsSecretsCreate(params *SecretsSecretsCreateParams, authIn
 		PathPattern:        "/secrets/secrets/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SecretsSecretsCreateReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -397,8 +623,9 @@ func (a *Client) SecretsSecretsCreate(params *SecretsSecretsCreateParams, authIn
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*SecretsSecretsCreateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for secrets_secrets_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -416,7 +643,7 @@ func (a *Client) SecretsSecretsDelete(params *SecretsSecretsDeleteParams, authIn
 		PathPattern:        "/secrets/secrets/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SecretsSecretsDeleteReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -451,7 +678,7 @@ func (a *Client) SecretsSecretsList(params *SecretsSecretsListParams, authInfo r
 		PathPattern:        "/secrets/secrets/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SecretsSecretsListReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -486,7 +713,7 @@ func (a *Client) SecretsSecretsPartialUpdate(params *SecretsSecretsPartialUpdate
 		PathPattern:        "/secrets/secrets/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SecretsSecretsPartialUpdateReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -501,8 +728,9 @@ func (a *Client) SecretsSecretsPartialUpdate(params *SecretsSecretsPartialUpdate
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*SecretsSecretsPartialUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for secrets_secrets_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -520,7 +748,7 @@ func (a *Client) SecretsSecretsRead(params *SecretsSecretsReadParams, authInfo r
 		PathPattern:        "/secrets/secrets/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SecretsSecretsReadReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -555,7 +783,7 @@ func (a *Client) SecretsSecretsUpdate(params *SecretsSecretsUpdateParams, authIn
 		PathPattern:        "/secrets/secrets/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SecretsSecretsUpdateReader{formats: a.formats},
 		AuthInfo:           authInfo,
@@ -570,8 +798,9 @@ func (a *Client) SecretsSecretsUpdate(params *SecretsSecretsUpdateParams, authIn
 		return success, nil
 	}
 	// unexpected success response
-	unexpectedSuccess := result.(*SecretsSecretsUpdateDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for secrets_secrets_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

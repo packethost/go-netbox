@@ -21,13 +21,15 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
-// CircuitCircuitTermination Termination a
+// CircuitCircuitTermination circuit circuit termination
 //
 // swagger:model CircuitCircuitTermination
 type CircuitCircuitTermination struct {
@@ -41,10 +43,9 @@ type CircuitCircuitTermination struct {
 	ID int64 `json:"id,omitempty"`
 
 	// Port speed (Kbps)
-	// Required: true
 	// Maximum: 2.147483647e+09
 	// Minimum: 0
-	PortSpeed *int64 `json:"port_speed"`
+	PortSpeed *int64 `json:"port_speed,omitempty"`
 
 	// site
 	// Required: true
@@ -120,16 +121,15 @@ func (m *CircuitCircuitTermination) validateConnectedEndpoint(formats strfmt.Reg
 }
 
 func (m *CircuitCircuitTermination) validatePortSpeed(formats strfmt.Registry) error {
+	if swag.IsZero(m.PortSpeed) { // not required
+		return nil
+	}
 
-	if err := validate.Required("port_speed", "body", m.PortSpeed); err != nil {
+	if err := validate.MinimumInt("port_speed", "body", *m.PortSpeed, 0, false); err != nil {
 		return err
 	}
 
-	if err := validate.MinimumInt("port_speed", "body", int64(*m.PortSpeed), 0, false); err != nil {
-		return err
-	}
-
-	if err := validate.MaximumInt("port_speed", "body", int64(*m.PortSpeed), 2.147483647e+09, false); err != nil {
+	if err := validate.MaximumInt("port_speed", "body", *m.PortSpeed, 2.147483647e+09, false); err != nil {
 		return err
 	}
 
@@ -155,16 +155,15 @@ func (m *CircuitCircuitTermination) validateSite(formats strfmt.Registry) error 
 }
 
 func (m *CircuitCircuitTermination) validateUpstreamSpeed(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.UpstreamSpeed) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("upstream_speed", "body", int64(*m.UpstreamSpeed), 0, false); err != nil {
+	if err := validate.MinimumInt("upstream_speed", "body", *m.UpstreamSpeed, 0, false); err != nil {
 		return err
 	}
 
-	if err := validate.MaximumInt("upstream_speed", "body", int64(*m.UpstreamSpeed), 2.147483647e+09, false); err != nil {
+	if err := validate.MaximumInt("upstream_speed", "body", *m.UpstreamSpeed, 2.147483647e+09, false); err != nil {
 		return err
 	}
 
@@ -172,7 +171,6 @@ func (m *CircuitCircuitTermination) validateUpstreamSpeed(formats strfmt.Registr
 }
 
 func (m *CircuitCircuitTermination) validateURL(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.URL) { // not required
 		return nil
 	}
@@ -185,12 +183,83 @@ func (m *CircuitCircuitTermination) validateURL(formats strfmt.Registry) error {
 }
 
 func (m *CircuitCircuitTermination) validateXconnectID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.XconnectID) { // not required
 		return nil
 	}
 
-	if err := validate.MaxLength("xconnect_id", "body", string(m.XconnectID), 50); err != nil {
+	if err := validate.MaxLength("xconnect_id", "body", m.XconnectID, 50); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this circuit circuit termination based on the context it is used
+func (m *CircuitCircuitTermination) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateConnectedEndpoint(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateID(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSite(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateURL(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CircuitCircuitTermination) contextValidateConnectedEndpoint(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ConnectedEndpoint != nil {
+		if err := m.ConnectedEndpoint.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("connected_endpoint")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *CircuitCircuitTermination) contextValidateID(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "id", "body", int64(m.ID)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CircuitCircuitTermination) contextValidateSite(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Site != nil {
+		if err := m.Site.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("site")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *CircuitCircuitTermination) contextValidateURL(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "url", "body", strfmt.URI(m.URL)); err != nil {
 		return err
 	}
 

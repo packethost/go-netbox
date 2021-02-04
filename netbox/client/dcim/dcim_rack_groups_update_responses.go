@@ -45,14 +45,7 @@ func (o *DcimRackGroupsUpdateReader) ReadResponse(response runtime.ClientRespons
 		}
 		return result, nil
 	default:
-		result := NewDcimRackGroupsUpdateDefault(response.Code())
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		if response.Code()/100 == 2 {
-			return result, nil
-		}
-		return nil, result
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -61,7 +54,7 @@ func NewDcimRackGroupsUpdateOK() *DcimRackGroupsUpdateOK {
 	return &DcimRackGroupsUpdateOK{}
 }
 
-/*DcimRackGroupsUpdateOK handles this case with default header values.
+/* DcimRackGroupsUpdateOK describes a response with status code 200, with default header values.
 
 DcimRackGroupsUpdateOK dcim rack groups update o k
 */
@@ -72,7 +65,6 @@ type DcimRackGroupsUpdateOK struct {
 func (o *DcimRackGroupsUpdateOK) Error() string {
 	return fmt.Sprintf("[PUT /dcim/rack-groups/{id}/][%d] dcimRackGroupsUpdateOK  %+v", 200, o.Payload)
 }
-
 func (o *DcimRackGroupsUpdateOK) GetPayload() *models.RackGroup {
 	return o.Payload
 }
@@ -83,46 +75,6 @@ func (o *DcimRackGroupsUpdateOK) readResponse(response runtime.ClientResponse, c
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDcimRackGroupsUpdateDefault creates a DcimRackGroupsUpdateDefault with default headers values
-func NewDcimRackGroupsUpdateDefault(code int) *DcimRackGroupsUpdateDefault {
-	return &DcimRackGroupsUpdateDefault{
-		_statusCode: code,
-	}
-}
-
-/*DcimRackGroupsUpdateDefault handles this case with default header values.
-
-DcimRackGroupsUpdateDefault dcim rack groups update default
-*/
-type DcimRackGroupsUpdateDefault struct {
-	_statusCode int
-
-	Payload interface{}
-}
-
-// Code gets the status code for the dcim rack groups update default response
-func (o *DcimRackGroupsUpdateDefault) Code() int {
-	return o._statusCode
-}
-
-func (o *DcimRackGroupsUpdateDefault) Error() string {
-	return fmt.Sprintf("[PUT /dcim/rack-groups/{id}/][%d] dcim_rack-groups_update default  %+v", o._statusCode, o.Payload)
-}
-
-func (o *DcimRackGroupsUpdateDefault) GetPayload() interface{} {
-	return o.Payload
-}
-
-func (o *DcimRackGroupsUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
